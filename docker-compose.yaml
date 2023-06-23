@@ -4,7 +4,7 @@ services:
   web:
     #image: 127.0.0.1:5000/swarmtest
     image: "hutinskit/swarmtest:${DOCKER_IMAGE_TAG}"
-    build: .
+    #build: .
     ports:
       - "8000:8000"
   redis:
