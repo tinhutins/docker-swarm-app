@@ -87,16 +87,30 @@ jobs:
           script: set -a && . .env && set +a
           
       - 
-        name: Deploy to Docker swarm
-        uses: wshihadeh/docker-deployment-action@v1
+        name: deploy to swarm
+        uses: kitconcept/docker-stack-deploy@v1.0.1
         with:
-          remote_docker_host: root@192.168.43.128
-          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
-          deployment_mode: docker-swarm
-          pre_deployment_command_args: set -a && . .env && set +a
-          copy_stack_file: true
-          deploy_path: ./
-          stack_file_name: docker-compose.yaml
-          keep_files: 4
-          args: --env-file .env my-app
+          registry: "hub.docker.com"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          remote_host: 192.168.43.128
+          remote_user: root
+          remote_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          stack_file: "./docker-compose.yaml"
+          stack_name: "my-app"
+          stack_param: ""
+          env_file: "/root/.env"
+      #-  
+       # name: Deploy to Docker swarm
+       # uses: wshihadeh/docker-deployment-action@v1
+       # with:
+        #  remote_docker_host: root@192.168.43.128
+         # ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+         # ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+         # deployment_mode: docker-swarm
+         # pre_deployment_command_args: set -a && . .env && set +a
+         # copy_stack_file: true
+         # deploy_path: ./
+         # stack_file_name: docker-compose.yaml
+         # keep_files: 4
+         # args: my-app
