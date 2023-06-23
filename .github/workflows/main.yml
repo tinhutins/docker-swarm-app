@@ -61,7 +61,7 @@ jobs:
           echo DOCKER_IMAGE_TAG=$${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }} >> .env
           cat .env
           pwd
-          ls
+          ls -laht
       - 
         name: Deploy to Docker swarm
         uses: wshihadeh/docker-deployment-action@v1
@@ -76,4 +76,4 @@ jobs:
           deploy_path: ./
           stack_file_name: docker-compose.yaml
           keep_files: 5
-          args: DOCKER_IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }}
+          args: my-app
