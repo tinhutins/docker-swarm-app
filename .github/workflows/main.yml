@@ -58,7 +58,7 @@ jobs:
         name: create env file
         run: |
           touch .env
-          echo DOCKER_IMAGE_TAG=hutinskit/swarmtest:${{ github.sha }} > .env
+          echo DOCKER_IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }} > .env
           pwd
           ls -laht
           cat .env
