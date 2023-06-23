@@ -3,7 +3,7 @@ version: "3.9"
 services:
   web:
     #image: 127.0.0.1:5000/swarmtest
-    image: "hutinskit/swarmtest:${DOCKER_IMAGE_TAG}"
+    image: "${DOCKER_IMAGE_TAG}"
     build: .
     ports:
       - "8000:8000"
