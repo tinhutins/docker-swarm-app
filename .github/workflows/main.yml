@@ -94,9 +94,9 @@ jobs:
          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
          ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
          deployment_mode: docker-swarm
-         pre_deployment_command_args: set -a && . .env && set +a
+         pre_deployment_command_args: set -a && . .env && set +a && -e DOCKER_IMAGE_TAG=${{ github.sha }}
          copy_stack_file: true
          deploy_path: ./
          stack_file_name: docker-compose.yaml
          keep_files: 4
-         args: -e DOCKER_IMAGE_TAG=${{ github.sha }}
+         args: my-app
