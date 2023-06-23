@@ -58,10 +58,10 @@ jobs:
         name: create env file
         run: |
           touch .env
-          echo DOCKER_IMAGE_TAG=$${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }} >> .env
-          cat .env
+          echo DOCKER_IMAGE_TAG=$${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }} > .env
           pwd
           ls -laht
+          cat .env
       - 
         name: Deploy to Docker swarm
         uses: wshihadeh/docker-deployment-action@v1
