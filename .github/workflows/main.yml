@@ -1,5 +1,6 @@
 name: ci
-
+env:
+  TAG: 'v1.0.0'
 on:
   push:
     branches:
@@ -31,8 +32,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.meta.outputs.tags }}
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ steps.meta.outputs.tags }}
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.meta.outputs.tags }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
       
       - 
         name: Deploy to Docker swarm
