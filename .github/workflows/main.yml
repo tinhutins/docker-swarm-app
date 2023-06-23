@@ -82,16 +82,6 @@ jobs:
           key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           port: 22
           script: set -a && . .env && set +a
-      
-      -
-        name: executing remote ssh commands using password another
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: 192.168.43.128
-          username: root
-          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          port: 22
-          script: pwd
           
       - 
         name: Deploy to Docker swarm
@@ -101,6 +91,7 @@ jobs:
           ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
           deployment_mode: docker-swarm
+          pre_deployment_command_args: set -a && . .env && set +a
           copy_stack_file: true
           deploy_path: ./
           stack_file_name: docker-compose.yaml
