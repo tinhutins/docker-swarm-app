@@ -1,6 +1,5 @@
 name: ci
-env:
-  TAG: 'v1.0.0'
+
 on:
   push:
     branches:
@@ -8,6 +7,8 @@ on:
     tags: |
       # dynamically set the branch name and sha as a custom tag
       type=raw,value=/swarmtest:{{sha}}
+env:
+  TAG: v1.0.0
 
 jobs:
   build:
@@ -33,7 +34,7 @@ jobs:
           file: ./Dockerfile
           push: true
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.meta.outputs.tags }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:"$TAG"
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
       
       - 
         name: Deploy to Docker swarm
