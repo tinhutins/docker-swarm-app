@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - "main"
-    tags: |
-      # dynamically set the branch name and sha as a custom tag
-      type=raw,value=/swarmtest:{{sha}}
+    tags:
+      - "v*.*.*"
 env:
   TAG: v1.0.0
 
@@ -17,6 +16,23 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            hutinskit/swarmtest
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       -
         name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -33,8 +49,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.meta.outputs.tags }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
+          tags: ${{ steps.meta.outputs.tags }}
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
       
       - 
         name: Deploy to Docker swarm
