@@ -99,4 +99,4 @@ jobs:
           deploy_path: ./
           stack_file_name: docker-compose.yaml
           keep_files: 4
-          args: my-app
+          args: --env-file .env my-app
