@@ -62,6 +62,16 @@ jobs:
           pwd
           ls -laht
           cat .env
+      -
+        name: Copy env file to remote host where docker-compose is executing
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: .env
+          remote: /root/.env
+          host: 192.168.43.128
+          username: root
+          password: ${{ secrets.PASSWORD }}
+          privateKey: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
       - 
         name: Deploy to Docker swarm
         uses: wshihadeh/docker-deployment-action@v1
