@@ -49,8 +49,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }}
       
       - 
         name: Deploy to Docker swarm
