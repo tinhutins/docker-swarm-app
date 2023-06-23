@@ -33,7 +33,7 @@ jobs:
           file: ./Dockerfile
           push: true
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.meta.outputs.tags }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:$TAG
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:"$TAG"
       
       - 
         name: Deploy to Docker swarm
