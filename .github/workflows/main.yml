@@ -72,7 +72,10 @@ jobs:
           port: 22
           source: ".env"
           target: /root
-        
+       
+  deploy:
+    runs-on: self-hosted
+    steps:
       -
         name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
@@ -95,5 +98,5 @@ jobs:
           copy_stack_file: true
           deploy_path: ./
           stack_file_name: docker-compose.yaml
-          keep_files: 5
+          keep_files: 4
           args: my-app
