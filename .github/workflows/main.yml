@@ -74,4 +74,4 @@ jobs:
           deploy_path: ./
           stack_file_name: docker-compose.yaml
           keep_files: 5
-          args: -E up -d
+          args: DOCKER_IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }} up -d
