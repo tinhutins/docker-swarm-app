@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - "main"
-    tags:
-      - "v*.*.*"
-#env:
-#  TAG: v1.0.0
 
 jobs:
   build:
@@ -54,38 +50,38 @@ jobs:
           #tags: ${{ steps.meta.outputs.tags }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }}
       
-      - 
-        name: create env file
-        run: |
-          touch .env
-          echo DOCKER_IMAGE_TAG=${{ github.sha }} > .env
-          pwd
-          ls -laht
-          cat .env
-      -
-        name: copy .env file via ssh key
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: 192.168.43.128
-          username: root
-          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          port: 22
-          source: ".env"
-          target: /root
+     # - 
+     #   name: create env file
+     #   run: |
+      #    touch .env
+       #   echo DOCKER_IMAGE_TAG=${{ github.sha }} > .env
+       #   pwd
+       #   ls -laht
+       #   cat .env
+     # -
+      #  name: copy .env file via ssh key
+      #  uses: appleboy/scp-action@v0.1.4
+       # with:
+        #  host: 192.168.43.128
+        #  username: root
+        #  key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+        #  port: 22
+         # source: ".env"
+         # target: /root
        
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      -
-        name: executing env parsing
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: 192.168.43.128
-          username: root
-          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          port: 22
-          script: set -a && . .env && set +a
+     # -
+      #  name: executing env parsing
+       # uses: appleboy/ssh-action@v0.1.10
+       # with:
+        #  host: 192.168.43.128
+        #  username: root
+         # key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+         # port: 22
+         # script: set -a && . .env && set +a
               
       -
         name: deploy to docker swarm 
@@ -100,6 +96,7 @@ jobs:
             cd docker-swarm-app
             export DOCKER_IMAGE_TAG=${{ github.sha }}
             docker-compose config | docker stack deploy -c docker-compose.yaml my-app
+            rm -rf docker-swarm-app
           
       #-  
       # name: Deploy to Docker swarm
