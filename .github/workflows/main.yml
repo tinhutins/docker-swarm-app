@@ -74,6 +74,7 @@ jobs:
           target: /root
        
   deploy:
+    needs: build
     runs-on: self-hosted
     steps:
       -
