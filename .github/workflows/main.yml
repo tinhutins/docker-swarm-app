@@ -108,6 +108,7 @@ jobs:
           script: |
             pwd
             ls -laht
+            export DOCKER_IMAGE_TAG=${{ github.sha }}
             docker-compose config | docker stack deploy -c docker-compose.yaml my-app
           
       #-  
