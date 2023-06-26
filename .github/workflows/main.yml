@@ -93,10 +93,10 @@ jobs:
           port: 22
           script: |
             git clone https://github.com/tinhutins/docker-swarm-app.git
-            cd docker-swarm-app
+            cd docker-swarm-app/
             export DOCKER_IMAGE_TAG=${{ github.sha }}
             docker-compose config | docker stack deploy -c docker-compose.yaml my-app
-            rm -rf docker-swarm-app
+            rm -rf ../docker-swarm-app/
           
       #-  
       # name: Deploy to Docker swarm
