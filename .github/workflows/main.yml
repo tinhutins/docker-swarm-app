@@ -86,6 +86,15 @@ jobs:
           port: 22
           script: set -a && . .env && set +a
           
+      -
+        name: export variable
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 192.168.43.128
+          username: root
+          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          port: 22
+          script: export DOCKER_IMAGE_TAG=${{ github.sha }}
       -  
        name: Deploy to Docker swarm
        uses: wshihadeh/docker-deployment-action@v1
@@ -94,7 +103,7 @@ jobs:
          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
          ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
          deployment_mode: docker-swarm
-         pre_deployment_command_args: set -a && . .env && set +a && -e DOCKER_IMAGE_TAG=${{ github.sha }}
+         pre_deployment_command_args: set -a && . .env && set +a && export DOCKER_IMAGE_TAG=${{ github.sha }}
          copy_stack_file: true
          deploy_path: ./
          stack_file_name: docker-compose.yaml
