@@ -51,7 +51,7 @@ jobs:
           file: ./Dockerfile
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: "$IMAGE_NAME:$IMAGE_TAG"
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
       
      # - 
      #   name: create env file
@@ -97,7 +97,7 @@ jobs:
           script: |
             git clone https://github.com/tinhutins/docker-swarm-app.git
             cd docker-swarm-app/
-            export DOCKER_IMAGE_TAG="$IMAGE_NAME:$IMAGE_TAG"
+            export DOCKER_IMAGE_TAG=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             docker-compose config | docker stack deploy -c docker-compose.yaml my-swarm-app
             rm -rf ../docker-swarm-app/
           
