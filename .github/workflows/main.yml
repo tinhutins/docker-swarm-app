@@ -5,8 +5,8 @@ on:
     branches:
       - "main"
 env:
-  IMAGE_NAME: hutinskit/swarmtest
-  IMAGE_TAG: v1.0.10
+  IMAGE_NAME: "hutinskit/swarmtest"
+  IMAGE_TAG: "v1.0.10"
   
 jobs:
   build:
@@ -51,7 +51,7 @@ jobs:
           file: ./Dockerfile
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: $IMAGE_NAME:$IMAGE_TAG
+          tags: "$IMAGE_NAME:$IMAGE_TAG"
       
      # - 
      #   name: create env file
@@ -97,7 +97,7 @@ jobs:
           script: |
             git clone https://github.com/tinhutins/docker-swarm-app.git
             cd docker-swarm-app/
-            export DOCKER_IMAGE_TAG=$IMAGE_NAME:$IMAGE_TAG
+            export DOCKER_IMAGE_TAG="$IMAGE_NAME:$IMAGE_TAG"
             docker-compose config | docker stack deploy -c docker-compose.yaml my-swarm-app
             rm -rf ../docker-swarm-app/
           
