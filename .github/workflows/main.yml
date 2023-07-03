@@ -6,7 +6,7 @@ on:
       - "main"
 env:
   IMAGE_NAME: "hutinskit/swarmtest"
-  IMAGE_TAG: "v1.0.10"
+  IMAGE_TAG: "v1.0.20"
   
 jobs:
   build:
