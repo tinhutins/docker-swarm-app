@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - "main"
-
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest
+  IMAGE_TAG: v1.0.10
+  
 jobs:
   build:
     runs-on: self-hosted
@@ -48,7 +51,7 @@ jobs:
           file: ./Dockerfile
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest:${{ github.sha }}
+          tags: $IMAGE_NAME:$IMAGE_TAG
       
      # - 
      #   name: create env file
@@ -94,7 +97,7 @@ jobs:
           script: |
             git clone https://github.com/tinhutins/docker-swarm-app.git
             cd docker-swarm-app/
-            export DOCKER_IMAGE_TAG=${{ github.sha }}
+            export DOCKER_IMAGE_TAG=$IMAGE_NAME:$IMAGE_TAG
             docker-compose config | docker stack deploy -c docker-compose.yaml my-swarm-app
             rm -rf ../docker-swarm-app/
           
