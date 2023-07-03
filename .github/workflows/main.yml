@@ -5,14 +5,14 @@ on:
     branches:
       - "main"
 env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/swarmtest
+  IMAGE_NAME: hutinskit/swarmtest
   IMAGE_TAG: v1.0.10
   
 jobs:
   build:
     runs-on: self-hosted
-    env:
-      DOCKER_IMAGE_TAG: ${{ github.sha }}
+   # env:
+    #  DOCKER_IMAGE_TAG: ${{ github.sha }}
     steps:
       -
         name: Checkout
