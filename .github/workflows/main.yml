@@ -95,12 +95,12 @@ jobs:
           key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            rm -rf ~/docker-swarm-app/
             git clone https://github.com/tinhutins/docker-swarm-app.git
             cd docker-swarm-app/
             export DOCKER_IMAGE_TAG=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             docker-compose config | docker stack deploy -c docker-compose.yaml my-swarm-app
-            rm -rf ../docker-swarm-app/
-          
+            
       #-  
       # name: Deploy to Docker swarm
       # uses: wshihadeh/docker-deployment-action@v1
